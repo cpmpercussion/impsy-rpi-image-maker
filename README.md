@@ -8,13 +8,20 @@ The playbooks originated with [pi-ci](https://github.com/ptrsr/pi-ci/)'s example
 
 Most likely, the latest IMPSY image will be available as a release from this repo. It should be compatible with Raspberry Pis 3, 4, 5 and Zero 2 W.
 
-You can run the ansible playbook with:
+In short, you can run the ansible playbook with:
 
 ```
 ansible-playbook -i ./hosts.yml ./main.yml
 ```
 
-### Bits and bops I might need:
+## Install and running:
+
+There's a `pyproject.toml` file to handle the python dependencies.
+
+1. You can install the virtualenv and dependencies with `poetry install`
+2. You can run the ansible playbooks with `./run.sh`
+
+## Bits and bops I might need:
 
 - location that runs poetry's python3: `#!/usr/bin/env python3`
 - might need to make the timeout longer, 300s is not long enough for the docker contained to start maybe?
