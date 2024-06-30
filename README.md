@@ -16,6 +16,6 @@ ansible-playbook -i ./hosts.yml ./main.yml
 
 ### Bits and bops I might need:
 
-```
-#!/usr/bin/env python3
-```
+- location that runs poetry's python3: `#!/usr/bin/env python3`
+- might need to make the timeout longer, 300s is not long enough for the docker contained to start maybe?
+- test logging into the docker container via ssh.
