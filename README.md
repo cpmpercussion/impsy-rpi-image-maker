@@ -14,3 +14,8 @@ You can run the ansible playbook with:
 ansible-playbook -i ./hosts.yml ./main.yml
 ```
 
+### Bits and bops I might need:
+
+```
+#!/usr/bin/env python3
+```

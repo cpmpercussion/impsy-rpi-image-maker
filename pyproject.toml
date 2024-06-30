@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "impsy-rpi-image-maker"
+version = "0.1.0"
+description = "Creates Raspberry Pi OS images using Ansible and Pi-CI"
+authors = ["Charles Martin <cpm@charlesmartin.com.au>"]
+license = "MIT"
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.11"
+ansible = "^10.1.0"
+docker-py = "^1.10.6"
+requests = "^2.32.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
