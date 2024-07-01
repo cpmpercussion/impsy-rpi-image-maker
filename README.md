@@ -14,12 +14,15 @@ In short, you can run the ansible playbook with:
 ansible-playbook -i ./hosts.yml ./main.yml
 ```
 
+But, in order to make sure the right python packages are available, it's probably easier to use Poetry to manage a virtual environment as explained below.
+
+
 ## Install and running:
 
 There's a `pyproject.toml` file to handle the python dependencies.
 
 1. You can install the virtualenv and dependencies with `poetry install`
-2. You can run the ansible playbooks with `./run.sh`
+2. You can run the ansible playbooks with `poetry run ./run.sh`
 
 ## Bits and bops I might need:
 
