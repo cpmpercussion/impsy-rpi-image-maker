@@ -1,6 +1,4 @@
 ---
-
-- name: install-impsy
 - hosts: raspi
   tasks:
 

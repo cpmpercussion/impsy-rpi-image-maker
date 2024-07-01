@@ -12,7 +12,7 @@
 
 # Execute test on raspi
 - import_playbook: raspi/test.yml
-- import_playbook: raspi/install-impsy.yml
+- import_playbook: raspi/impsy.yml
 
 # Stop raspi vm machine
 - import_playbook: host/stop.yml
