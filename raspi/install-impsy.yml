@@ -39,13 +39,13 @@
   - name: Git checkout IMPSY
     ansible.builtin.git:
       repo: 'https://github.com/cpmpercussion/imps.git'
-      dest: {{ ansible_env.HOME }}/imps
+      dest: "{{ ansible_env.HOME }}/imps"
       version: main
 
   - name: Poetry Install IMPSY
     command: poetry install
     args:
-      chdir: {{ ansible_env.HOME }}/imps
+      chdir: "{{ ansible_env.HOME }}/imps"
     environment: 
       PYTHON_KEYRING_BACKEND: keyring.backends.null.Keyring
       PATH: '{{ ansible_env.PATH }}:{{ ansible_env.HOME }}/.local/bin'
@@ -53,7 +53,7 @@
   - name: Poetry test run IMPSY
     command: poetry run ./start_impsy.py test-mdrnn
     args:
-      chdir: {{ ansible_env.HOME }}/imps
+      chdir: "{{ ansible_env.HOME }}/imps"
     environment:
       PATH: '{{ ansible_env.PATH }}:{{ ansible_env.HOME }}/.local/bin'
 
