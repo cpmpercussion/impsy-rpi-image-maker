@@ -1,0 +1,29 @@
+name: PI-CI
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get install ansible
+          pip3 install docker-py
+
+      - name: Run test
+        run: |
+          ansible-playbook \
+          -i hosts.yml \
+          main.yml
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: config
+          path: dist
