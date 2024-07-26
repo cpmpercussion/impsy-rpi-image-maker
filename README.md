@@ -12,7 +12,7 @@ You can flash the custom image to an SD card using [Raspberry Pi Imager](https:/
 
 ## Setting up the starting image and Raspberry Pi
 
-You'll need a Raspberry Pi 4 or 5 (suggested, although 3 and Zero 2 W may technically work) and an SD card of at least 16GB.
+You'll need a Raspberry Pi 4 or 5 (suggested, although 3 and Zero 2 W may technically work) and a 16GB SD card (it's better not to use a huge SD card to save time when copying it).
 
 1. Download the [Raspberry Pi Imager](https://www.raspberrypi.com/software/)
 
