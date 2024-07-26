@@ -78,4 +78,19 @@ Once you have verified that everything is working, time to suck off this image, 
 
 The final `impsy-shrunk.img.xz` file is ready for release.
 
-## 
+## Flashing the SD card image
+
+To install on a Raspberry Pi:
+
+1. download one of the `.img.xz` images from the [releases area](https://github.com/cpmpercussion/impsy-rpi-image-maker/releases)
+
+2. open Raspberry Pi Imager, select `Use custom` under Operating System, then flash to your SD card. Select `no` for applying custom settings (unless you want to, but not sure if it works or is useful..)
+
+3. put the SD card into a Raspberry Pi and boot it up
+
+> N.B.: Experience seems to show that the image works best on the second boot, and that slower Raspberry Pis (3B+, Zero 2 W), will take quite a while to boot up. Remember that the blinking light on Raspberry Pi indicates disk access.
+
+## More and references.
+
+For more information on using IMPSY, see the [main repo](https://github.com/cpmpercussion/imps), or the [workshop site](https://smcclab.github.io/nime-embedded-ai/)
+
