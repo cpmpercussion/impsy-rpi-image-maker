@@ -52,7 +52,9 @@ This part of the guide uses Ansible to install:
 
 Once you have setup the host Raspberry Pi, connect it to a network (easiest to use ethernet, not wifi) and ensure than you can login at `pi@impsypi.local` via SSH.
 
-1. Run the ansible tasks with `ansible-playbook -i ./hosts.yml ./main.yml`
+You will need to ensure that you have installed `ansible` and `sshpass` in order to complete the next step.
+
+1. Run the ansible tasks with `ansible-playbook -i ./hosts.yml ./impsy.yml --ask-pass`
 
 That's it! That should take a while but it's fairly easy.
 
