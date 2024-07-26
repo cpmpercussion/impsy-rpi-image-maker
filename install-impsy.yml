@@ -1,5 +1,7 @@
 ---
-- hosts: raspi
+
+- name: Install and configure IMPSY
+  hosts: impsypi
   tasks:
 
   - name: apt update
@@ -30,20 +32,19 @@
         - pipx
 
   - name: Install Poetry
-    # become: true
     community.general.pipx: 
       name: poetry 
 
   - name: Git checkout IMPSY
     ansible.builtin.git:
       repo: 'https://github.com/cpmpercussion/imps.git'
-      dest: "{{ ansible_env.HOME }}/imps"
+      dest: /home/pi/imps
       version: main
 
   - name: Poetry Install IMPSY
     command: poetry install
     args:
-      chdir: "{{ ansible_env.HOME }}/imps"
+      chdir: /home/pi/imps
     environment: 
       PYTHON_KEYRING_BACKEND: keyring.backends.null.Keyring
       PATH: '{{ ansible_env.PATH }}:{{ ansible_env.HOME }}/.local/bin'
@@ -51,21 +52,34 @@
   - name: Poetry test run IMPSY
     command: poetry run ./start_impsy.py test-mdrnn
     args:
-      chdir: "{{ ansible_env.HOME }}/imps"
+      chdir: /home/pi/imps
     environment:
       PATH: '{{ ansible_env.PATH }}:{{ ansible_env.HOME }}/.local/bin'
 
-# {{ ansible_env.HOME }}/.local/bin
+  - name: Create IMPSY-run service
+    become: true
+    template:
+      src: templates/impsy-run.service.j2
+      dest: /etc/systemd/system/impsy-run.service
 
-  # - name: Add ~/.local/bin to .bashrc
-  #   blockinfile:
-  #     dest: "{{ ansible_env.HOME }}/.bashrc"
-  #     block: |
-  #       export PATH="$HOME/.local/bin:$PATH"
-  #     marker: '# {mark} ANSIBLE MANAGED BLOCK - pipx'
-  #     create: yes
+  - name: Create IMPSY-web service
+    become: true
+    template:
+      src: templates/impsy-web.service.j2
+      dest: /etc/systemd/system/impsy-web.service
 
-  # - name: Run pipx ensurepath
-  #   shell: pipx ensurepath
-  #   environment: 
-  #     PATH: '{{ ansible_env.PATH }}:{{ ansible_env.HOME }}/.local/bin'
+  - name: Start IMPSY-web service
+    become: true
+    systemd:
+      name: impsy-web.service
+      daemon_reload: true
+      state: started
+      enabled: true
+
+  - name: Start IMPSY-run service
+    become: true
+    systemd:
+      name: impsy-run.service
+      state: started
+      enabled: true
+
