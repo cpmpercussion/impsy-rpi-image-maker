@@ -56,24 +56,26 @@ You will need to ensure that you have installed `ansible` and `sshpass` in order
 
 1. Run the ansible tasks with `ansible-playbook -i ./hosts.yml ./impsy.yml --ask-pass`
 
-That's it! That should take a while but it's fairly easy.
+That's it! That should take a while, go get a coffee.
 
 ## Save SD card image and compress it
 
+Once you have verified that everything is working, time to suck off this image, basically following [these instructions](https://github.com/monsieurborges/raspberry-pi/blob/master/setup/clone-sd-card.md).
 
+1. Shutdown the Raspberry Pi (gracefully), take out the SD card and plug it into a computer
 
-But, in order to make sure the right python packages are available, it's probably easier to use Poetry to manage a virtual environment as explained below.
+2. Save the SD filesystem to a `.img` file: 
 
+  - On MacOS I find out the `/dev/diskX` entry with `diskutil list`
 
-## Install and running:
+  - Then, unmount the disk: `diskutil unmountDisk /dev/diskX`
 
-There's a `pyproject.toml` file to handle the python dependencies.
+  - Then I extract the image with `time sudo gdd if=/dev/rdiskX of=./impsy.img bs=16M status=progress && sync` (N.B. `rdisk` for "raw disk").
 
-1. You can install the virtualenv and dependencies with `poetry install`
-2. You can run the ansible playbooks with `poetry run ./run.sh`
+3. Use [PiShrink](https://github.com/Drewsif/PiShrink) to compress the image from the docker image `monsieurborges/pishrink`
 
-## Bits and bops I might need:
+  - `docker run --privileged=true --rm --volume $(pwd):/workdir monsieurborges/pishrink pishrink -Zv impsy.img impsy-shrunk.img`
 
-- location that runs poetry's python3: `#!/usr/bin/env python3`
-- might need to make the timeout longer, 300s is not long enough for the docker contained to start maybe?
-- test logging into the docker container via ssh.
+The final `impsy-shrunk.img.xz` file is ready for release.
+
+## 
