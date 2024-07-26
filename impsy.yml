@@ -4,15 +4,11 @@
   hosts: impsypi
   tasks:
 
-  - name: apt update
+  - name: apt update and upgrade
     become: true
     apt:
       update_cache: true
       cache_valid_time: 3600
-
-  - name: apt upgrade
-    become: true
-    apt:
       upgrade: dist
 
   - name: Install packages
@@ -30,6 +26,11 @@
         - wget
         - patchelf
         - pipx
+
+  - name: apt clean
+    become: true
+    apt:
+      clean: true 
 
   - name: Install Poetry
     # become: true
@@ -83,3 +84,27 @@
       name: impsy-run.service
       state: started
       enabled: true
+
+  - name: "Setup Ethernet gadget network interface according to: https://forums.raspberrypi.com/viewtopic.php?p=2184846"
+    become: true
+    template:
+      src: templates/g_ether.j2
+      dest: /etc/network/interfaces.d/g_ether
+
+  - name: Enable dwc2 in /boot/firmware/config.txt
+    become: true
+    lineinfile:
+      path: /boot/firmware/config.txt
+      line: 'dtoverlay=dwc2'
+      insertafter: '[all]'
+
+# Replaces the cmdline.txt line by checking for the "rootwait" at the end. Negative lookahead to not replace if modules-load line is already there.
+
+  - name: Ensure modules-load=dwc2,g_ether at end of /boot/firmware/cmdline.txt
+    become: true
+    lineinfile: 
+      dest: /boot/firmware/cmdline.txt
+      backrefs: true
+      state: present
+      regexp: '(.*rootwait(?!\s+modules-load=dwc2,g_ether))'
+      line: '\1 modules-load=dwc2,g_ether'
