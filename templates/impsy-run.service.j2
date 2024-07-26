@@ -1,0 +1,14 @@
+[Unit]
+Description=IMPSY RPi Module Interaction Startup Script
+After=multi-user.target
+
+[Service]
+ExecStart=/bin/bash /home/{{ ansible_user_id }}/imps/examples/rpi/impsy-run.sh
+WorkingDirectory=/home/{{ ansible_user_id }}/imps
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User={{ ansible_user_id }}
+
+[Install]
+WantedBy=multi-user.target
