@@ -1,6 +1,6 @@
 [Unit]
 Description=IMPSY RPi Module WebUI Startup Script
-After=multi-user.target
+After=network.target
 
 [Service]
 ExecStart=/bin/bash {{ ansible_env.HOME }}/{{ impsy_loc }}/examples/rpi/impsy-web.sh
