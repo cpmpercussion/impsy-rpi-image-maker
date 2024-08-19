@@ -58,6 +58,17 @@ You will need to ensure that you have installed `ansible` and `sshpass` in order
 
 That's it! That should take a while, go get a coffee.
 
+## Testing
+
+You should be able to:
+
+- SSH to the pi at `pi@impsypi.local`
+- Test that the systemd services are working:
+  - `sudo systemd status impsy-run.service`
+  - `sudo systemd status impsy-web.service`
+- View the IMPSY web UI at `http://impsypi.local:4000` or `http://169.254.1.107:4000`
+
+
 ## Save SD card image and compress it
 
 Once you have verified that everything is working, time to suck off this image, basically following [these instructions](https://github.com/monsieurborges/raspberry-pi/blob/master/setup/clone-sd-card.md).
